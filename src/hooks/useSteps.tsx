@@ -1,12 +1,12 @@
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { JSX, useState } from "react";
 
 export const useSteps = ({
   defaultPage,
   pages,
 }: {
-  defaultPage: number;
-  pages: [];
+  defaultPage?: number;
+  pages: (() => JSX.Element)[];
 }) => {
   const { push } = useRouter();
   const initialPage = defaultPage ? defaultPage : 0;

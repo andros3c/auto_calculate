@@ -16,7 +16,6 @@ import { SummaryOrder } from "./fragments/SummaryOrder";
 
 import { useSteps } from "@/hooks/useSteps";
 import { useAddReceiptContext } from "@/contexts/addReceipt";
-import { useState } from "react";
 import SaveConfirmationModal from "./fragments/listOforders/SaveConfirmationModal";
 
 const AddReceipt = () => {
@@ -61,7 +60,8 @@ const AddReceipt = () => {
           setActivePage(0);
         }, 1200);
       }
-    } catch (e) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (e: any) {
       toast({
         title: e,
         status: "error",
