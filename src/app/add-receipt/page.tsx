@@ -16,9 +16,8 @@ import { SummaryOrder } from "./fragments/SummaryOrder";
 
 import { useSteps } from "@/hooks/useSteps";
 import { useAddReceiptContext } from "@/contexts/addReceipt";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import SaveConfirmationModal from "./fragments/listOforders/SaveConfirmationModal";
-import { useRouter } from "next/navigation";
 
 const AddReceipt = () => {
   const CONTENT_LIST = [
@@ -33,7 +32,7 @@ const AddReceipt = () => {
   const progress = ((activePage + 1) * 100) / CONTENT_LIST.length;
   const { canClickNextButton, data, insertOrdersDetails, resetAllState } =
     useAddReceiptContext();
-  const [users, setUsers] = useState([]);
+
   const toast = useToast();
   const submitData = async () => {
     const { owner, category, date } = data;

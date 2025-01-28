@@ -8,7 +8,7 @@ export const getCurrentDateAndDay = () => {
   const date = `${year}-${month}-${day}`;
 
   // Get the day of the week in Bahasa Indonesia
-  const options = { weekday: "long" };
+  const options: Intl.DateTimeFormatOptions = { weekday: "long" };
   const dayName = today.toLocaleDateString("id-ID", options);
 
   return { day: dayName, date };
@@ -24,7 +24,7 @@ export const day = [
   "Minggu",
 ];
 
-export const formatDate = (dateStr) => {
+export const formatDate = (dateStr: string) => {
   const [year, month, day] = dateStr.split("-");
   return `${day}/${month}/${year}`;
 };

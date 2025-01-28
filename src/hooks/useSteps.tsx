@@ -1,7 +1,13 @@
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
-export const useSteps = ({ defaultPage, pages }) => {
+export const useSteps = ({
+  defaultPage,
+  pages,
+}: {
+  defaultPage: number;
+  pages: [];
+}) => {
   const { push } = useRouter();
   const initialPage = defaultPage ? defaultPage : 0;
   const [activePage, setActivePage] = useState(initialPage);

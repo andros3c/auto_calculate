@@ -1,7 +1,7 @@
 import theme from "@/app/theme";
 import { ChakraProvider } from "@chakra-ui/react";
 
-const AppProvider = ({ children }) => {
+const AppProvider = ({ children }: { children: React.ReactNode }) => {
   return <ChakraProvider theme={theme}>{children}</ChakraProvider>;
 };
 

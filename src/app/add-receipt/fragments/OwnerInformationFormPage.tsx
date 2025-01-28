@@ -1,4 +1,4 @@
-import { useAddReceiptContext } from "@/contexts/addReceipt";
+import { OwnerInitialValue, useAddReceiptContext } from "@/contexts/addReceipt";
 import { checkIsValueValid } from "@/utils/checkIsValueValid";
 import { day } from "@/utils/timeAndDate";
 
@@ -9,8 +9,8 @@ const OwnerInformationFormPage = () => {
   const { data, setData, setCanClickNextButton } = useAddReceiptContext();
   const { owner, category, day: _day, date } = data;
 
-  const handleOnChange = (key, value) => {
-    const copiedData = cloneDeep(data);
+  const handleOnChange = (key: keyof OwnerInitialValue, value: string) => {
+    const copiedData: OwnerInitialValue = cloneDeep(data);
 
     copiedData[key].value = value;
     copiedData[key].error = !checkIsValueValid(value)
@@ -25,8 +25,6 @@ const OwnerInformationFormPage = () => {
     setCanClickNextButton(ownerInformationFilled);
   };
 
-  
-
   return (
     <Flex direction="column" w="100%" gap="2em" h="100%" py="5em">
       <Text fontWeight={"bold"} fontSize="large">
@@ -39,7 +37,7 @@ const OwnerInformationFormPage = () => {
             type="text"
             variant="line"
             value={owner.value}
-            onChange={(e) => handleOnChange("owner",e.target.value)}
+            onChange={(e) => handleOnChange("owner", e.target.value)}
           />
           <Text fontSize="small" color="red">
             {data.owner.error}

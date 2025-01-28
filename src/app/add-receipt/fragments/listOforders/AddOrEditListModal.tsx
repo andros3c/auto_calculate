@@ -17,9 +17,16 @@ import {
   useRadioGroup,
 } from "@chakra-ui/react";
 import { cloneDeep } from "lodash";
-import { useState } from "react";
 
-export const AddListModal = ({ isOpen, onClose }) => {
+interface AddListModal {
+  isOpen: boolean;
+  onClose: () => void;
+}
+interface Target {
+  value: string;
+  name: string;
+}
+export const AddListModal = ({ isOpen, onClose }: AddListModal) => {
   const {
     setOrdersData,
     ordersData,
@@ -27,18 +34,12 @@ export const AddListModal = ({ isOpen, onClose }) => {
     fieldState,
     resetFieldState,
   } = useAddReceiptContext();
-  // const initialField = {
-  //   name: "",
-  //   unit: "Kg",
-  //   amount: "",
-  //   price: "",
-  // };
-  // const [fieldData, setFieldData] = useState(initialField);
+
   const notUsingUnit = fieldState.unit === "Tidak ada";
   const usingKg = fieldState.unit === "Kg";
   const usingPcs = fieldState.unit === "Pcs";
   const usingGram = fieldState.unit === "Gram";
-  const handleChange = (e) => {
+  const handleChange = (e: { target: Target }) => {
     const name = e.target.name;
     const value = e.target.value;
     if (name === "unit" && value === "Tidak ada") {
@@ -47,7 +48,7 @@ export const AddListModal = ({ isOpen, onClose }) => {
     return setFieldState((prev) => ({ ...prev, [name]: value }));
   };
 
-  const customRound = (value) => {
+  const customRound = (value: number) => {
     if (value <= 0) return 0;
     if (value > 0 && value <= 500) return 500;
     if (value > 500 && value <= 1000) return 1000;
@@ -159,7 +160,7 @@ export const AddListModal = ({ isOpen, onClose }) => {
                   fieldState.isEditMode
                     ? () => {
                         const copiedData = cloneDeep(ordersData);
-                        copiedData[fieldState.selectedId] = {
+                        copiedData[fieldState.selectedId ?? 0] = {
                           ...fieldState,
                           totalPrice: calculateTotalPrice(),
                         };
@@ -191,8 +192,15 @@ export const AddListModal = ({ isOpen, onClose }) => {
   );
 };
 
-const RadioButton = ({ onChange, defaultValue = "Kg" }) => {
-  function RadioCard(props) {
+const RadioButton = ({
+  onChange,
+  defaultValue = "Kg",
+}: {
+  onChange: ({ target }: { target: Target }) => void;
+  defaultValue: string;
+}) => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  function RadioCard(props: any) {
     const { getInputProps, getRadioProps } = useRadio(props);
 
     const input = getInputProps();

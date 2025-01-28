@@ -1,4 +1,3 @@
-import { colors } from "@/app/theme/foundations/colors";
 import { useAddReceiptContext } from "@/contexts/addReceipt";
 import { formatCurrency } from "@/utils/formatCurrency";
 import { formatDate } from "@/utils/timeAndDate";
@@ -16,14 +15,12 @@ import {
   Tr,
 } from "@chakra-ui/react";
 import { useRef, useState } from "react";
-import * as htmlToImage from "html-to-image";
-import { toPng } from "html-to-image";
 import { useReactToPrint } from "react-to-print";
 import { startCase } from "lodash";
-import { color } from "framer-motion";
+import { colors } from "@/app/theme/foundations/colors";
 
 export const SummaryOrder = () => {
-  const { data, setData, ordersData } = useAddReceiptContext();
+  const { data, ordersData } = useAddReceiptContext();
   const {
     owner: { value: ownerValue },
     category: { value: CategoryValue },
@@ -31,46 +28,24 @@ export const SummaryOrder = () => {
     day: { value: dayValue },
   } = data;
 
-  const [selected, setSelected] = useState();
+  const [selected, setSelected] = useState(0);
 
   // Function to calculate grand total
   const calculateGrandTotal = () => {
-    var total = 0;
+    let total = 0;
     for (const i of ordersData) {
-      total += i.totalPrice;
+      total += i.totalPrice ?? 0;
     }
     return total;
   };
 
   // Function to capture the component and save as an image
-  const captureImage = async () => {
-    const element = document.getElementById("summary-order-container"); // Reference the container
-    if (element) {
-      try {
-        const dataUrl = await htmlToImage.toPng(element, {
-          backgroundColor: "#ffffff", // Set background color
-          width: element.scrollWidth, // Capture the full width, including overflow
-          height: element.scrollHeight, // Capture the full height, including overflow
-          style: {
-            transform: "none", // Prevent scaling that might cut off parts of the element
-            padding: "0px", // Optional, ensure there's no extra padding
-            margin: "0px", // Optional, ensure there's no extra margin
-          },
-        });
-
-        const link = document.createElement("a");
-        link.href = dataUrl;
-        link.download = "summary-order.png"; // Set the file name
-        link.click(); // Trigger the download
-      } catch (error) {
-        console.error("Error capturing the image: ", error);
-      }
-    }
-  };
 
   const contentRef = useRef<HTMLDivElement>(null);
   const reactToPrintFn = useReactToPrint({ contentRef });
-
+  const handleClick = () => {
+    reactToPrintFn();
+  };
   return (
     <Flex direction="column" w="100%" gap="1em" h="100%">
       <Text fontSize="large">Summary Pesanan</Text>
@@ -145,21 +120,12 @@ export const SummaryOrder = () => {
                         {usingGram ? amount / 1000 : amount}
                         {!usingGram ? (!notUsingUnit ? unit : "") : "Kg"}
                       </Td>
-                      {/* {!usingGram ? (
-                        notUsingUnit ? (
-                          <Td></Td>
-                        ) : (
-                          <Td>{unit}</Td>
-                        )
-                      ) : (
-                        <Td>Kg</Td>
-                      )} */}
                       {!notUsingUnit ? (
                         <Td>Rp{formatCurrency(price)}</Td>
                       ) : (
                         <Td></Td>
                       )}
-                      <Td>Rp{formatCurrency(totalPrice)}</Td>
+                      <Td>Rp{formatCurrency(totalPrice ?? 0)}</Td>
                     </Tr>
                   );
                 })}
@@ -177,7 +143,7 @@ export const SummaryOrder = () => {
         </Flex>
         {/* Button to trigger image capture */}
       </Flex>
-      <Button onClick={reactToPrintFn}>Cetak Bon</Button>
+      <Button onClick={handleClick}>Cetak Bon</Button>
     </Flex>
   );
 };

@@ -1,9 +1,9 @@
-import { colors } from "@/app/theme/foundations/colors";
 import { useAddReceiptContext } from "@/contexts/addReceipt";
 import { formatDate } from "@/utils/timeAndDate";
 import { Flex, Text } from "@chakra-ui/react";
 import { ListOfOrderStack } from "./ListOfOrderStack";
 import { capitalize } from "lodash";
+import { colors } from "@/app/theme/foundations/colors";
 
 const ListOfOrderPage = () => {
   const { data } = useAddReceiptContext();

@@ -11,7 +11,12 @@ import {
   ModalOverlay,
 } from "@chakra-ui/react";
 
-const DeleteModal = ({ isOpen, onClose, onOpen, id }) => {
+interface DeleteModal {
+  isOpen: boolean;
+  onClose: () => void;
+  id: number;
+}
+const DeleteModal = ({ isOpen, onClose, id }: DeleteModal) => {
   const { setOrdersData } = useAddReceiptContext();
   return (
     <Modal

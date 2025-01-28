@@ -2,7 +2,7 @@ import { colors } from "../foundations/colors";
 
 export const inputStyles = {
   variants: {
-    line: (props) => {
+    line: () => {
       // const { isRequired, isDisabled } = props;
       return {
         field: {

@@ -1,4 +1,3 @@
-import { useAddReceiptContext } from "@/contexts/addReceipt";
 import {
   Button,
   Flex,
@@ -10,9 +9,17 @@ import {
   ModalHeader,
   ModalOverlay,
 } from "@chakra-ui/react";
+interface ConfirmationModal {
+  isOpen: boolean;
+  onClose: () => void;
+  saveOrders: () => void;
+}
 
-const SaveConfirmationModal = ({ isOpen, onClose, saveOrders }) => {
-  const { setOrdersData } = useAddReceiptContext();
+const SaveConfirmationModal = ({
+  isOpen,
+  onClose,
+  saveOrders,
+}: ConfirmationModal) => {
   return (
     <Modal
       isOpen={isOpen}

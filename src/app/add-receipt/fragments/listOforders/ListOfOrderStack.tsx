@@ -1,4 +1,3 @@
-import { colors } from "@/app/theme/foundations/colors";
 import { formatCurrency } from "@/utils/formatCurrency";
 import { Button, Flex, Text, useDisclosure } from "@chakra-ui/react";
 import { capitalize, startCase, toLower } from "lodash";
@@ -6,28 +5,22 @@ import { useState } from "react";
 import { AddListModal } from "./AddOrEditListModal";
 import { useAddReceiptContext } from "@/contexts/addReceipt";
 import DeleteModal from "./DeleteModal";
+import { colors } from "@/app/theme/foundations/colors";
+
 
 export const ListOfOrderStack = () => {
-  const thing = {
-    name: "cabai merah",
-    amount: "4",
-    unit: "kg",
-    price: "40000",
-    totalPrice: "160000",
-  };
-  const order = [];
-  // for (let i = 0; i < 10; i++) {
-  //   order.push({ ...thing });
-  // }
-  const [highligted, setHighligted] = useState();
+  const [highligted, setHighligted] = useState(0);
   const [clickCount, setClickCount] = useState(0);
 
-  const handleClick = (id) => {
-    id === highligted && clickCount < 2
-      ? setClickCount((prev) => prev + 1)
-      : setClickCount(1);
+  const handleClick = (id: number) => {
+    if (id === highligted && clickCount < 2) {
+      setClickCount((prev) => prev + 1);
+    } else {
+      setClickCount(1);
+    }
     setHighligted(id);
   };
+
   const { isOpen, onOpen, onClose } = useDisclosure();
   const {
     isOpen: isOpenDeleteModal,
@@ -35,13 +28,12 @@ export const ListOfOrderStack = () => {
     onClose: onCloseDeleteModal,
   } = useDisclosure();
   const [selectedItem, setSelectedItem] = useState(0);
-  const { ordersData, setFieldState, fieldState } = useAddReceiptContext();
+  const { ordersData, setFieldState } = useAddReceiptContext();
 
   return (
     <Flex h="100%" w="100%" direction={"column"} gap="1em">
       <DeleteModal
         isOpen={isOpenDeleteModal}
-        onOpen={onOpenDeleteModal}
         onClose={onCloseDeleteModal}
         id={selectedItem}
       />
@@ -148,7 +140,7 @@ export const ListOfOrderStack = () => {
 
                     <Flex>
                       <Text fontWeight="bold">
-                        Rp{formatCurrency(totalPrice)}
+                        Rp{formatCurrency(totalPrice ?? 0)}
                       </Text>
                     </Flex>
                   </Flex>

@@ -2,7 +2,7 @@
 import HomeIconGenerator from "@/components/HomeIconGenerator";
 import { Flex } from "@chakra-ui/react";
 import { useRouter } from "next/navigation";
-import { IoIosMenu, IoMdAdd, IoMdTrash } from "react-icons/io";
+import { IoIosMenu, IoMdAdd } from "react-icons/io";
 
 export default function Home() {
   const { push } = useRouter();
@@ -20,6 +20,7 @@ export default function Home() {
           icon={IoIosMenu}
           text={"Daftar Bon"}
           colorScheme={"green"}
+          onClick={() => {}}
         />
         <HomeIconGenerator
           icon={IoMdAdd}

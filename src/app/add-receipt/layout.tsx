@@ -1,6 +1,6 @@
 import { AddReceiptContextProvider } from "@/contexts/addReceipt";
 
-const AddReceiptLayout = ({ children }) => {
+const AddReceiptLayout = ({ children }: { children: React.ReactNode }) => {
   return <AddReceiptContextProvider>{children}</AddReceiptContextProvider>;
 };
 

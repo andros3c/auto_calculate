@@ -2,7 +2,7 @@ export const colors = {
   primary: "#29A37E", //myColor.green[500]
   secondary: "#FFA234", //myColor.orange[500]
   tertiary: "#1A91AD", //myColor.blue[500]
-  quaternary:"#313131",
+  quaternary: "#313131",
   myColor: {
     green: {
       100: "#F4FFFC",

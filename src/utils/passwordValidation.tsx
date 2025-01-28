@@ -1,4 +1,4 @@
-export const passwordValidation = (str) => {
+export const passwordValidation = (str: string) => {
   // Error when str no character (empty)
   if (!str.length) {
     return "Password tidak boleh kosong";
@@ -28,7 +28,6 @@ export const passwordValidation = (str) => {
     return "Password harus berisi minimal 1 huruf kecil";
   }
 
-  
   // // Regex test str has 1 uppercase character
   // const hasUppercase =
   //   /^(?=.*[A-Z])[A-Za-z\d !"#$%&'()*+,-./:;<=>?@[\\\]^_`{|}~]{8,}$/.test(str);
