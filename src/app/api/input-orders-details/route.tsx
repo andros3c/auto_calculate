@@ -8,7 +8,6 @@ interface Payload {
 export const POST = async (req: NextRequest) => {
   try {
     const transaction: Payload = await req.json();
-    console.log(transaction);
     const result = await db
       .insert(ordersDetailsTable)
       .values(transaction.data)
