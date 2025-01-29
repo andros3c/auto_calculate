@@ -95,7 +95,6 @@ export const SummaryOrder = () => {
                   <Th>No.</Th>
                   <Th boxSize="40%">Nama Barang</Th>
                   <Th>Jumlah</Th>
-                  {/* <Th>Satuan</Th> */}
                   <Th>Harga Per Kg</Th>
                   <Th>Total</Th>
                 </Tr>

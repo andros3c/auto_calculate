@@ -1,8 +1,22 @@
 import { colors } from "@/app/theme/foundations/colors";
 import { Flex, Icon, Text } from "@chakra-ui/react";
+import { IconType } from "react-icons";
 
-const HomeIconGenerator = ({ icon, text, colorScheme, onClick }) => {
+interface HomeIconGeneratorProps {
+  icon: IconType;
+  text: string;
+  colorScheme: keyof typeof colors.myColor;
+  onClick?: () => void;
+}
+
+const HomeIconGenerator: React.FC<HomeIconGeneratorProps> = ({
+  icon,
+  text,
+  colorScheme,
+  onClick,
+}) => {
   const handleClick = typeof onClick === "function" ? onClick : undefined;
+
   return (
     <Flex
       p=".5em"
@@ -28,4 +42,5 @@ const HomeIconGenerator = ({ icon, text, colorScheme, onClick }) => {
     </Flex>
   );
 };
+
 export default HomeIconGenerator;
