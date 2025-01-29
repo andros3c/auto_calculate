@@ -95,7 +95,7 @@ const AddReceiptContextProvider = ({
   const saveOrders = async (data: OrdersData[]) => {
     try {
       const res = await fetch(
-        "http://localhost:3000/api/input-orders-details",
+        `${process.env.NEXT_PUBLIC_HOSTNAME!}/api/input-orders-details`,
         {
           method: "POST",
           body: JSON.stringify({

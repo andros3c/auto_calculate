@@ -36,14 +36,17 @@ const AddReceipt = () => {
   const submitData = async () => {
     const { owner, category, date } = data;
     try {
-      const res = await fetch("http://localhost:3000/api/input-orders", {
-        method: "POST",
-        body: JSON.stringify({
-          owner: owner.value,
-          category: category.value,
-          date: date.value,
-        }),
-      });
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_HOSTNAME!}/api/input-orders`,
+        {
+          method: "POST",
+          body: JSON.stringify({
+            owner: owner.value,
+            category: category.value,
+            date: date.value,
+          }),
+        }
+      );
       const response = await res.json();
       const transactionId = response?.data[0].id;
       const result = await insertOrdersDetails({ transactionId });
@@ -60,7 +63,7 @@ const AddReceipt = () => {
           setActivePage(0);
         }, 1200);
       }
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (e: any) {
       toast({
         title: e,
