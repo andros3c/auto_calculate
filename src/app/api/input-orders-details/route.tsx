@@ -8,7 +8,7 @@ export const POST = async (req: NextRequest) => {
       await req.json();
     const result = await db
       .insert(ordersDetailsTable)
-      .values(transaction.data)
+      .values(transaction)
       .returning();
 
     return NextResponse.json({
